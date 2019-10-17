@@ -19,6 +19,15 @@ function UserForm({ values, touched, errors, status }) {
                     <p className="error">{errors.password}</p>
                 )}
 
+                <Field component="select" className="role-select" name="role">
+                    <option>Choose an option</option>
+                    <option value="section-lead">Section Lead</option>
+                    <option value="team-lead">Team Lead</option>
+                    <option value="developer">Developer</option>
+                </Field>
+                {touched.role && errors.role && (
+                    <p className="error">{errors.role}</p>
+                )}
 
                 <label className="checkbox-container">
                     Terms of Service
@@ -30,6 +39,7 @@ function UserForm({ values, touched, errors, status }) {
                 </label>
                 {touched.terms && errors.terms && <p className="error">{errors.terms}</p>}
                 <button type="submit">Submit!</button>
+
             </Form>
 
             
@@ -38,6 +48,7 @@ function UserForm({ values, touched, errors, status }) {
                 <ul key={user.id}>
                     <li>Name: {user.name}</li>
                     <li>Email: {user.email}</li>
+                    <li>Role: {user.role}</li>
                 </ul>
             ))}
         </div>
@@ -45,23 +56,26 @@ function UserForm({ values, touched, errors, status }) {
 };
 
 const FormikUserForm = withFormik({
-    mapPropsToValues({ name, email, password, terms }) {
+    mapPropsToValues({ name, email, password, role, terms }) {
         return {
             name: name || "",
             email: email || "",
             password: password || "",
+            role: role || "",
             terms: terms || false
         };
     },
     validationSchema: Yup.object().shape({
         password: Yup.string().required('Oops, a password is required!'),
+        role: Yup.string().required('Please make a selection!'),
         terms: Yup.boolean().oneOf([true], 'Agreement of terms is required!')
     }),
     handleSubmit(values, {setStatus, resetForm}) {
         axios
             .post('https://reqres.in/api/users', values)
             .then(res => {setStatus(res.data); 
-                resetForm()})
+                resetForm()
+            })
             .catch(err => console.log(err.response));
     }
     

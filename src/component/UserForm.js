@@ -14,7 +14,7 @@ function UserForm({ values, touched, errors, status }) {
             <Form>
                 <Field type="text" name="name" placeholder="Name" />
                 <Field type="text" name="email" placeholder="Email" />
-                <Field type="text" name="password" placeholder="Password" />
+                <Field type="password" name="password" placeholder="Password" />
                 {touched.password && errors.password && (
                     <p className="error">{errors.password}</p>
                 )}

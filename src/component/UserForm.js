@@ -32,9 +32,10 @@ function UserForm({ values, touched, errors, status }) {
                 <button type="submit">Submit!</button>
             </Form>
 
+            
+
             {users.map(user => (
                 <ul key={user.id}>
-                    <h1>Users</h1>
                     <li>Name: {user.name}</li>
                     <li>Email: {user.email}</li>
                 </ul>
@@ -56,15 +57,18 @@ const FormikUserForm = withFormik({
         password: Yup.string().required('Oops, a password is required!'),
         terms: Yup.boolean().oneOf([true], 'Agreement of terms is required!')
     }),
-    handleSubmit(values, {setStatus}) {
-        axios.post('https://reqres.in/api/users', values)
-            .then(res => {setStatus(res.data); })
+    handleSubmit(values, {setStatus, resetForm}) {
+        axios
+            .post('https://reqres.in/api/users', values)
+            .then(res => {setStatus(res.data); 
+                resetForm()})
             .catch(err => console.log(err.response));
     }
+    
 })(UserForm);
 
 
 export default FormikUserForm;
-console.log("This is the HOC", FormikUserForm);
+
 
 

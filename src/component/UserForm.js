@@ -10,8 +10,18 @@ function UserForm({ values }) {
                 <Field type="text" name="name" placeholder="Name" />
                 <Field type="text" name="email" placeholder="Email" />
                 <Field type="text" name="password" placeholder="Password" />
-            </Form>
-            
+
+                <label className="checkbox-container">
+                    Terms of Service
+                    <Field
+                        type="checkbox"
+                        name="terms"
+                        checked={values.terms}
+                    />
+                    <span className="checkmark" />
+                </label>
+                <button type="submit">Submit!</button>
+            </Form>  
         </div>
     )
 }

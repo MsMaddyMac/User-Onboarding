@@ -1,7 +1,7 @@
 import React from 'react';
 //import axios from 'axios';
 import { withFormik, Form, Field } from 'formik';
-import * as Yup from "yup";
+// import * as Yup from "yup";
 
 function UserForm({ values }) {
     return (
@@ -23,9 +23,21 @@ function UserForm({ values }) {
                 <button type="submit">Submit!</button>
             </Form>  
         </div>
-    )
-}
+    );
+};
 
-export default UserForm
+const FormikUserForm = withFormik({
+    mapPropsToValues({ name, email, password, terms }) {
+        return {
+            name: name || "",
+            email: email || "",
+            password: password || "",
+            terms: terms || ""
+        };
+    },
+})(UserForm);
+
+
+export default FormikUserForm
 
 

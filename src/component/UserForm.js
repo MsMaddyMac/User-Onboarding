@@ -21,9 +21,9 @@ function UserForm({ values, touched, errors, status }) {
 
                 <Field component="select" className="role-select" name="role">
                     <option>Choose an option</option>
-                    <option value="section-lead">Section Lead</option>
-                    <option value="team-lead">Team Lead</option>
-                    <option value="developer">Developer</option>
+                    <option value="Section Lead">Section Lead</option>
+                    <option value="Team Lead">Team Lead</option>
+                    <option value="Developer">Developer</option>
                 </Field>
                 {touched.role && errors.role && (
                     <p className="error">{errors.role}</p>
